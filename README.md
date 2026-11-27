@@ -1,4 +1,4 @@
-# vDrop
+# vDrop 📡
 
 Local Wi‑Fi file transfer and group chat. Run vDrop on one Windows PC; phones and other laptops on the same network open the LAN URL in a browser to upload, download, or chat. No cloud hosting required.
 
@@ -6,13 +6,13 @@ Files are stored **byte-identical** — no compression, resizing, or re-encoding
 
 **Repository:** [github.com/vibedevops-agency/vDrop](https://github.com/vibedevops-agency/vDrop)
 
-## Requirements
+## Requirements ✅
 
 - **Node.js 20+** and npm
-- Devices on the **same Wi‑Fi** / LAN
+- Devices on the **same Wi‑Fi** / LAN 📶
 - **Windows Firewall:** allow inbound TCP **1947** on private networks (the batch script can add a rule)
 
-## Clone and run
+## Clone and run 🚀
 
 ```powershell
 git clone https://github.com/vibedevops-agency/vDrop.git
@@ -20,7 +20,7 @@ cd vDrop
 npm install
 ```
 
-### File unlock PIN (optional)
+### File unlock PIN 🔐 (optional)
 
 Some flows use a stealth unlock PIN. The **default in this repo is `0000`**. Change it before use on a real network:
 
@@ -41,12 +41,12 @@ Or on Windows, double-click **`start-vdrop.bat`** (installs deps if needed, buil
 
 Then:
 
-1. On the host PC, open [http://localhost:1947](http://localhost:1947)
+1. On the host PC, open [http://localhost:1947](http://localhost:1947) 💻
 2. Copy the **Same Wi‑Fi** link from the page (e.g. `http://192.168.x.x:1947`)
-3. On another device, open that URL
-4. Upload or download files, or use **Messages** for the shared chat
+3. On another device, open that URL 📱
+4. Upload or download files, or use **Messages** for the shared chat 💬
 
-### Development
+### Development 🛠️
 
 ```powershell
 npm run dev
@@ -54,7 +54,7 @@ npm run dev
 
 Runs Next.js in dev mode on `0.0.0.0:1947` (webpack).
 
-## npm scripts
+## npm scripts 📜
 
 | Script | Description |
 | --- | --- |
@@ -66,17 +66,17 @@ Runs Next.js in dev mode on `0.0.0.0:1947` (webpack).
 
 Default port: **1947** (`PORT` env var overrides).
 
-## Limits and data
+## Limits and data 📦
 
 | Limit | Value |
 | --- | --- |
 | Max file size | **2 GB** |
 | Max stored files | **~100** |
-| Recycle bin retention | **14 days** |
+| Recycle bin retention | **14 days** 🗑️ |
 
 Uploaded files and chat live under **`data/`** (gitignored). Clone starts with empty `data/` placeholders only.
 
-## API overview
+## API overview 🔌
 
 | Method | Path | Purpose |
 | --- | --- | --- |
@@ -91,13 +91,13 @@ Uploaded files and chat live under **`data/`** (gitignored). Clone starts with e
 | `POST` | `/api/messages/react` | Reactions |
 | `GET` | `/api/network` | LAN URLs for sharing |
 
-## Troubleshooting
+## Troubleshooting 🔧
 
 - **Peer cannot connect:** Same Wi‑Fi, correct LAN IP, firewall allows TCP **1947**.
 - **Build fails:** Node 20+, delete `node_modules` and run `npm install` again.
 - **Checksums:** Each upload shows **SHA-256** for integrity checks after transfer.
 
-## Project layout
+## Project layout 📁
 
 ```
 vDrop/
@@ -108,7 +108,18 @@ vDrop/
 └── start-vdrop.bat
 ```
 
-## Publishing (maintainers, two GitHub accounts)
+## Security & privacy 🛡️
+
+| Item | On GitHub? |
+| --- | --- |
+| `.env.local` / real PIN | ❌ gitignored |
+| `.cursor/` IDE logs | ❌ gitignored |
+| `data/` uploads & chat | ❌ gitignored |
+| Default unlock PIN in code | ✅ `0000` placeholder only — set your own before LAN use |
+
+No API keys, tokens, or personal paths are committed. Maintainer push scripts only **prompt** for credentials; they are not stored in the repo.
+
+## Publishing (maintainers, two GitHub accounts) 🐙
 
 This clone is wired **only** for [vibedevops-agency/vDrop](https://github.com/vibedevops-agency/vDrop):
 
@@ -131,6 +142,6 @@ That sets `GIT_CONFIG_GLOBAL` to `gitconfig-vdrop-push` for the command only (GC
 
 For a **personal** repo on the same PC, keep using `gh` or GCM with `https://YOUR_USER@github.com/YOUR_USER/repo.git` and local `credential.useHttpPath true`.
 
-## License
+## License 📄
 
 Published by [vibedevops-agency](https://github.com/vibedevops-agency). Add a `LICENSE` file here if you want an explicit open-source license.
