@@ -108,18 +108,7 @@ vDrop/
 └── start-vdrop.bat
 ```
 
-## Security & privacy 🛡️
-
-| Item | On GitHub? |
-| --- | --- |
-| `.env.local` / real PIN | ❌ gitignored |
-| `.cursor/` IDE logs | ❌ gitignored |
-| `data/` uploads & chat | ❌ gitignored |
-| Default unlock PIN in code | ✅ `0000` placeholder only — set your own before LAN use |
-
-No API keys, tokens, or personal paths are committed. Maintainer push scripts only **prompt** for credentials; they are not stored in the repo.
-
-## Publishing (maintainers, two GitHub accounts) 🐙
+## Publishing (maintainers, two GitHub accounts)  
 
 This clone is wired **only** for [vibedevops-agency/vDrop](https://github.com/vibedevops-agency/vDrop):
 
