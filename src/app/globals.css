@@ -1,0 +1,579 @@
+@import "tailwindcss";
+
+/* Theme toggle sets class="dark" on <html>; without this, dark: utilities never apply. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --ink: #0c302a;
+  --ink-soft: #1f4a41;
+  --ink-muted: #5d736c;
+  --foam: #f3f8f4;
+  --line: #c9d7d0;
+  --accent-signal: #9fe870;
+  --on-accent: #0c302a;
+  --sky-wash: #e8f2ee;
+  --panel: rgba(255, 255, 255, 0.8);
+  --panel-strong: rgba(255, 255, 255, 0.92);
+  --panel-muted: rgba(255, 255, 255, 0.7);
+  --glow-green: rgba(159, 232, 112, 0.38);
+  --glow-blue: rgba(146, 196, 255, 0.35);
+  --glow-lime: rgba(190, 240, 140, 0.28);
+  --danger-bg: #fef2f2;
+  --danger-border: #fecaca;
+  --danger-text: #991b1b;
+  --font-display: var(--font-bricolage);
+  --font-sans: var(--font-manrope);
+  color-scheme: light;
+}
+
+html.dark {
+  --ink: #e7f3ee;
+  --ink-soft: #b9d2c8;
+  --ink-muted: #8aa89c;
+  --foam: #0a1411;
+  --line: #2a4038;
+  --accent-signal: #9fe870;
+  --on-accent: #0c302a;
+  --sky-wash: #13231e;
+  --panel: rgba(16, 30, 26, 0.88);
+  --panel-strong: rgba(20, 36, 31, 0.94);
+  --panel-muted: rgba(18, 32, 28, 0.75);
+  --glow-green: rgba(159, 232, 112, 0.18);
+  --glow-blue: rgba(96, 165, 250, 0.16);
+  --glow-lime: rgba(163, 230, 53, 0.12);
+  --danger-bg: rgba(127, 29, 29, 0.35);
+  --danger-border: rgba(248, 113, 113, 0.35);
+  --danger-text: #fecaca;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-muted: var(--ink-muted);
+  --color-foam: var(--foam);
+  --color-line: var(--line);
+  --color-accent-signal: var(--accent-signal);
+  --color-sky-wash: var(--sky-wash);
+  --font-sans: var(--font-manrope);
+  --font-display: var(--font-bricolage);
+}
+
+body {
+  background: var(--foam);
+  color: var(--ink);
+  font-family: var(--font-sans), sans-serif;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+/* Mobile: keep theme tokens even if a utility class fails to load */
+.vdrop-icon-btn {
+  color: var(--ink);
+  background: var(--panel-strong);
+  border: 1px solid var(--line);
+}
+
+html.dark .vdrop-icon-btn {
+  color: var(--ink);
+  background: var(--panel-strong);
+  border-color: var(--line);
+}
+
+.vdrop-icon-btn svg {
+  color: inherit;
+  stroke: currentColor;
+}
+
+.vdrop-mobile-dock {
+  background: var(--panel-strong);
+  border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -8px 24px rgba(12, 48, 42, 0.12);
+}
+
+html.dark .vdrop-mobile-dock {
+  box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.vdrop-mobile-dock .vdrop-dock-btn {
+  color: var(--ink);
+}
+
+.vdrop-mobile-dock .vdrop-dock-btn[aria-pressed="true"] {
+  background: rgba(159, 232, 112, 0.32);
+  color: var(--ink);
+}
+
+.vdrop-mobile-dock .theme-toggle {
+  background: var(--sky-wash);
+  border-color: var(--line);
+}
+
+.vdrop-mobile-dock .theme-toggle-thumb {
+  color: var(--ink);
+}
+
+/* Drop zone: theme-specific WebP backgrounds */
+.vdrop-drop-bg {
+  background-image: url("/dropzone-bg-light.webp");
+}
+
+html.dark .vdrop-drop-bg {
+  background-image: url("/dropzone-bg-dark.webp");
+}
+
+.vdrop-drop-card-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Shift crop down so the bridge + “California” title stay in frame */
+  object-position: center 58%;
+}
+
+/* Laptop: Pro Max–scale phone mock (~430×932 logical, tall aspect). */
+@media (min-width: 900px) {
+  :root {
+    --vdrop-phone-inset-top: 0.5rem;
+    --vdrop-phone-inset-bottom: 0.5rem;
+    --vdrop-phone-outer-w: min(27rem, 30vw);
+    --vdrop-phone-outer-h: calc(
+      100vh - var(--vdrop-phone-inset-top) - var(--vdrop-phone-inset-bottom)
+    );
+    --vdrop-phone-bezel-x: 0.7rem;
+    --vdrop-phone-bezel-top: 0.8rem;
+    --vdrop-phone-bezel-bottom: 1.05rem;
+    --vdrop-phone-island-w: 2.05rem;
+    --vdrop-phone-island-h: 0.5rem;
+    --vdrop-phone-island-top: 0.82rem;
+  }
+
+  .vdrop-main-with-phone {
+    padding-right: calc(var(--vdrop-phone-outer-w) + 2rem);
+  }
+}
+
+.vdrop-phone-chassis {
+  position: fixed;
+  z-index: 45;
+  right: 1rem;
+  top: var(--vdrop-phone-inset-top, 0.5rem);
+  width: var(--vdrop-phone-outer-w, min(27rem, 30vw));
+  height: var(
+    --vdrop-phone-outer-h,
+    calc(100vh - var(--vdrop-phone-inset-top, 0.5rem) - var(--vdrop-phone-inset-bottom, 0.5rem))
+  );
+  border-radius: 3.25rem;
+  border: 4px solid #2a2a2a;
+  background: linear-gradient(
+    165deg,
+    #3a3a3a 0%,
+    #1a1a1a 38%,
+    #0c0c0c 62%,
+    #1f1f1f 100%
+  );
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 0 0 3px rgba(159, 232, 112, 0.14),
+    0 32px 64px -24px rgba(0, 0, 0, 0.62),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  padding: var(--vdrop-phone-bezel-top, 0.8rem) var(--vdrop-phone-bezel-x, 0.7rem)
+    var(--vdrop-phone-bezel-bottom, 1.05rem);
+}
+
+.vdrop-phone-chassis::before {
+  content: "";
+  position: absolute;
+  top: var(--vdrop-phone-island-top, 0.82rem);
+  left: 50%;
+  z-index: 2;
+  height: var(--vdrop-phone-island-h, 0.5rem);
+  width: var(--vdrop-phone-island-w, 2.05rem);
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: #050505;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.vdrop-phone-mounted > .vdrop-chat-head {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+
+.vdrop-phone-mounted > .vdrop-chat-head h2 {
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.vdrop-phone-mounted > .vdrop-chat-head p {
+  font-size: 0.65rem;
+  line-height: 1.15;
+}
+
+.vdrop-phone-display {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 2.65rem;
+  background: var(--panel-strong);
+}
+
+.vdrop-phone-idle {
+  display: flex;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  height: 100%;
+  border: none;
+  background: transparent;
+  padding: 1rem;
+  text-align: center;
+  color: var(--ink-muted);
+}
+
+.vdrop-phone-idle svg {
+  height: 2.25rem;
+  width: 2.25rem;
+  color: var(--accent-signal);
+}
+
+.vdrop-phone-idle span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.vdrop-phone-mounted.vdrop-chat {
+  position: fixed;
+  z-index: 46;
+  right: calc(1rem + var(--vdrop-phone-bezel-x, 0.7rem));
+  top: calc(var(--vdrop-phone-inset-top, 0.5rem) + var(--vdrop-phone-bezel-top, 0.8rem));
+  width: calc(var(--vdrop-phone-outer-w, min(27rem, 30vw)) - var(--vdrop-phone-bezel-x, 0.7rem) * 2);
+  height: calc(
+    var(
+        --vdrop-phone-outer-h,
+        calc(100vh - var(--vdrop-phone-inset-top, 0.5rem) - var(--vdrop-phone-inset-bottom, 0.5rem))
+      ) - var(--vdrop-phone-bezel-top, 0.8rem) - var(--vdrop-phone-bezel-bottom, 1.05rem)
+  );
+  max-height: none;
+  min-height: 0;
+  border: none;
+  border-radius: 2.65rem;
+  box-shadow: none;
+  animation: vdrop-phone-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes vdrop-phone-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Light theme: plain chat panel (no wallpaper). */
+.vdrop-chat-wallpaper.vdrop-chat-mobile,
+.vdrop-phone-mounted.vdrop-chat-wallpaper {
+  background-color: var(--panel-strong);
+  background-image: none;
+}
+
+html:not(.dark) .vdrop-chat-wallpaper .vdrop-chat-messages {
+  background: var(--foam);
+}
+
+/* Dark theme: WhatsApp-style wallpaper on mobile + phone mock. */
+html.dark .vdrop-chat-wallpaper.vdrop-chat-mobile,
+html.dark .vdrop-phone-mounted.vdrop-chat-wallpaper {
+  background-color: #0b141a;
+  background-image: linear-gradient(
+      rgba(11, 20, 26, 0.52),
+      rgba(11, 20, 26, 0.52)
+    ),
+    url("/chat-wallpaper.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+html.dark .vdrop-chat-wallpaper .vdrop-chat-messages {
+  background: transparent;
+}
+
+html.dark .vdrop-chat-wallpaper .vdrop-chat-head {
+  background: rgba(159, 232, 112, 0.14);
+  backdrop-filter: blur(6px);
+}
+
+.vdrop-msg-bubble--mine {
+  background: #5a9e42;
+  color: #f4faf1;
+  border: 1px solid rgba(42, 74, 32, 0.35);
+}
+
+html.dark .vdrop-msg-bubble--mine {
+  background: #3f6f30;
+  color: #eef8e8;
+  border-color: rgba(159, 232, 112, 0.25);
+}
+
+.vdrop-msg-bubble--mine > p:first-child {
+  color: rgba(244, 250, 241, 0.82);
+}
+
+.vdrop-msg-target .vdrop-msg-bubble {
+  animation: vdrop-msg-jump 2.5s ease-out;
+}
+
+@keyframes vdrop-msg-jump {
+  0%,
+  18% {
+    box-shadow:
+      0 0 0 2px rgba(159, 232, 112, 0.9),
+      0 8px 20px -8px rgba(12, 48, 42, 0.35);
+  }
+  100% {
+    box-shadow: 0 1px 2px rgba(12, 48, 42, 0.08);
+  }
+}
+
+/* Laptop: fill the window with percentages, not dvh.
+   Chrome's 100dvh is taller than the visible window and clips the page.
+   Edge's dvh matches the window, which is why Edge looked correct. */
+@media (min-width: 900px) and (orientation: landscape) {
+  html,
+  body {
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+  }
+
+  .vdrop-shell,
+  .vdrop-shell > main {
+    height: 100%;
+    min-height: 0;
+    max-height: 100%;
+    overflow: hidden;
+  }
+}
+
+/* Real Chrome on a laptop is shorter than the preview frame, so tighten the drop card. */
+@media (min-width: 900px) and (orientation: landscape) and (max-height: 820px) {
+  .vdrop-shell > main {
+    gap: 0.5rem;
+    padding-top: 0.55rem;
+    padding-bottom: 0.55rem;
+  }
+
+  .vdrop-drop {
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+  }
+
+  .vdrop-drop-card {
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+  }
+
+  .vdrop-drop-card h2 {
+    font-size: 1.2rem;
+    line-height: 1.15;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes soft-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes breathe-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.78;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes wifi-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(159, 232, 112, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(159, 232, 112, 0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes row-in {
+  from {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-rise {
+  animation: rise-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-rise-delay {
+  animation: rise-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-panel {
+  animation: soft-scale-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.dropzone-glow {
+  animation: breathe-glow 3.8s ease-in-out infinite;
+}
+
+.wifi-chip-pulse {
+  animation: wifi-pulse 2.4s ease-out infinite;
+}
+
+.file-row-enter {
+  animation: row-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.panel-hover {
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease,
+    border-color 0.2s ease,
+    background-color 0.25s ease;
+}
+
+.panel-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 44px -28px rgba(12, 48, 42, 0.4);
+}
+
+html.dark .panel-hover:hover {
+  box-shadow: 0 22px 44px -28px rgba(0, 0, 0, 0.55);
+}
+
+.copy-flash {
+  background: linear-gradient(
+    110deg,
+    rgba(159, 232, 112, 0.18),
+    var(--panel),
+    rgba(159, 232, 112, 0.22)
+  );
+  background-size: 200% 100%;
+  animation: shimmer 0.9s ease;
+}
+
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  height: 22px;
+  width: 40px;
+  flex-shrink: 0;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--sky-wash);
+  padding: 2px;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent-signal);
+  outline-offset: 2px;
+}
+
+.theme-toggle-thumb {
+  display: inline-flex;
+  height: 16px;
+  width: 16px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #fff;
+  color: #0c302a;
+  box-shadow: 0 1px 3px rgba(12, 48, 42, 0.2);
+  transform: translateX(0);
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.theme-toggle-thumb svg {
+  stroke: currentColor;
+}
+
+html.dark .theme-toggle {
+  background: #1a2e28;
+}
+
+html.dark .theme-toggle-thumb {
+  background: #0f1c18;
+  color: var(--accent-signal);
+  transform: translateX(18px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise,
+  .animate-rise-delay,
+  .animate-panel,
+  .dropzone-glow,
+  .wifi-chip-pulse,
+  .file-row-enter,
+  .copy-flash {
+    animation: none !important;
+  }
+
+  .panel-hover,
+  .panel-hover:hover,
+  .theme-toggle-thumb {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  html.dark .theme-toggle-thumb {
+    transform: translateX(18px) !important;
+  }
+}

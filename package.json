@@ -1,0 +1,42 @@
+{
+  "name": "vdrop",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 0.0.0.0 --port 1947 --webpack",
+    "build": "next build",
+    "start": "node server.mjs",
+    "start:next": "next start --hostname 0.0.0.0 --port 1947",
+    "vdrop": "npm run build && npm run start",
+    "ydroply": "npm run vdrop",
+    "landrop": "npm run vdrop",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@radix-ui/react-progress": "^1.2.1",
+    "@radix-ui/react-slot": "^1.5.0",
+    "busboy": "^1.6.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.76.0",
+    "next": "16.4.6",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "tailwind-merge": "^3.7.0",
+    "yazl": "^3.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.5",
+    "@tailwindcss/turbopack": "4.3.3",
+    "@types/busboy": "^1.5.5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/yazl": "^3.3.1",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.6",
+    "postcss": "^8.5.33",
+    "tailwindcss": "4.3.3",
+    "typescript": "^5"
+  }
+}
