@@ -108,6 +108,22 @@ vDrop/
 └── start-vdrop.bat
 ```
 
+## Publishing (maintainers, two GitHub accounts)
+
+This clone is wired **only** for [vibedevops-agency/vDrop](https://github.com/vibedevops-agency/vDrop):
+
+- `credential.useHttpPath = true` (local) — credentials are keyed by repo path, not one global login for all of GitHub.
+- `origin` uses `https://vibedevops-agency@github.com/...` so Git Credential Manager picks the **vibedevops-agency** entry.
+
+Sign in for this repo (does **not** remove other accounts):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\github-vdrop-login.ps1
+git push -u origin main
+```
+
+For a **personal** repo on the same PC, use the same pattern locally: `credential.useHttpPath true` and `https://YOUR_USER@github.com/YOUR_USER/repo.git`. Each account keeps its own stored credential.
+
 ## License
 
 Published by [vibedevops-agency](https://github.com/vibedevops-agency). Add a `LICENSE` file here if you want an explicit open-source license.
