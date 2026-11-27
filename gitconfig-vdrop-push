@@ -1,0 +1,6 @@
+# Temporary global config for vDrop Git commands (see push-vdrop.ps1).
+# Uses Git Credential Manager only — not gh — so aladinquick stays default elsewhere.
+[credential]
+	helper = manager
+[credential "https://github.com"]
+	helper = manager

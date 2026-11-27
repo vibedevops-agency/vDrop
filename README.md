@@ -115,14 +115,21 @@ This clone is wired **only** for [vibedevops-agency/vDrop](https://github.com/vi
 - `credential.useHttpPath = true` (local) — credentials are keyed by repo path, not one global login for all of GitHub.
 - `origin` uses `https://vibedevops-agency@github.com/...` so Git Credential Manager picks the **vibedevops-agency** entry.
 
-Sign in for this repo (does **not** remove other accounts):
+Sign in once for this repo (does **not** remove other accounts / `gh` logins):
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\github-vdrop-login.ps1
-git push -u origin main
 ```
 
-For a **personal** repo on the same PC, use the same pattern locally: `credential.useHttpPath true` and `https://YOUR_USER@github.com/YOUR_USER/repo.git`. Each account keeps its own stored credential.
+If global Git uses **GitHub CLI** (`gh auth`) for another user, pushes from this folder should use:
+
+```powershell
+.\push-vdrop.ps1
+```
+
+That sets `GIT_CONFIG_GLOBAL` to `gitconfig-vdrop-push` for the command only (GCM for vibedevops-agency, `gh` unchanged elsewhere).
+
+For a **personal** repo on the same PC, keep using `gh` or GCM with `https://YOUR_USER@github.com/YOUR_USER/repo.git` and local `credential.useHttpPath true`.
 
 ## License
 
